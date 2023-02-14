@@ -37,7 +37,7 @@ iex -S mix
 c "lib/dictionary.ex"
 ```
 
-OR
+and
 
 - to recompile file with particular module:
 
