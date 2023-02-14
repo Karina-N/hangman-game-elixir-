@@ -1,11 +1,16 @@
 defmodule Dictionary do
-  def word_list do
-    words = File.read!("assets/words.txt")
-    String.split(words, ~r/\n/, trim: true)
-  end
+
+# this is called module attribute @word_list (in our case)
+# it is created at compile time
+# its nitial value determined after running some initial elixir code
+
+
+@word_list "assets/words.txt"
+|> File.read!()
+|> String.split(~r/\n/, trim: true)
 
   def random_word do
-    Enum.random(word_list)
-    # Enum.random(word_list()) // same as above
+    @word_list
+    |> Enum.random()
   end
 end
