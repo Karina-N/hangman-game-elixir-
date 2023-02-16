@@ -1,8 +1,19 @@
 defmodule Hangman do
 
-  def new_game() do
+@type state :: :initializing | :won | :lost | :good_guess | :bad_guess | :already_used
+@type game :: any
+@type tally :: %{
+  turns_left: integer,
+  game_state: state,
+  letters_guessed: list(String.t),
+  letters_used: list(String.t)
+}
+
+@spec new_game() :: game
+  def new_game do
   end
 
-  def make_move(game, guess) do
+@spec make_move(game, String.t) :: { game, tally }
+  def make_move(_game, _guess) do
   end
 end
