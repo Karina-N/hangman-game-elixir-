@@ -1,4 +1,4 @@
-defmodule Dictionary do
+defmodule DictionaryOriginal do
 
     def word_list do
       # option1
