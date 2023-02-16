@@ -40,12 +40,11 @@ defstruct(
     |> return_with_tally()
   end
 
-
   def make_move(game, guess) do
     #  here we're asking if 'guess' appears in 'letters_used'
     #  question mark means it returns true/false
 
-    # if game is NOT won or lost we exit, we accept the letter
+    # if game is NOT won or lost, we accept the letter
     # with accept_letter method we also check if we've already seen the letter
     accept_guess(game, guess, MapSet.member?(game.letters_used, guess))
     |> return_with_tally()
@@ -61,7 +60,21 @@ defstruct(
   defp accept_guess(game, guess, _already_used) do
     #  if we have not seen the letter, we add it to the letters_used
     %{game | letters_used: MapSet.put(game.letters_used, guess)}
+    |> score_guess(Enum.member?(game.letters, guess))
   end
+
+### SCORE_GUESS ########################################################
+
+defp score_guess(game, _good_guess = true) do
+  #  guessed all letters -> :won | :good_guess
+  new_state = maybe_won(MapSet.subset?(MapSet.new(game.letters), game.letters_used))
+  %{game | game_state: new_state}
+end
+
+defp score_guess(game, _bad_guess) do
+  #  turns_left == 1 -> lost OR decrement turns_left & :bad_guess
+  game
+end
 
 ###########################################################
 
@@ -77,5 +90,8 @@ defstruct(
   defp return_with_tally(game) do
     {game, tally(game)}
   end
+
+  defp maybe_won(true), do: :won
+  defp maybe_won(_), do: :good_guess
 
 end
