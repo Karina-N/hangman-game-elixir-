@@ -28,4 +28,18 @@ defstruct(
     }
   end
 
+  @spec make_move(t, String.t) :: { t, Type.tally }
+  def make_move(game = %{ game_state: won}, _guess) do
+    {game, tally(game)}
+  end
+
+  defp tally(game) do
+    %{
+      turns_left: game.turns_left,
+      game_state: game.game_state,
+      letters: [],
+      letters_used: game.letters_used |> MapSet.to_list |> Enum.sort
+    }
+  end
+
 end
