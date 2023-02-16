@@ -16,6 +16,8 @@ defstruct(
   letters_used: MapSet.new()
 )
 
+### NEW_GAME ###########################################
+
   @spec new_game() :: t
   def new_game do
     new_game(Dictionary.random_word)
@@ -28,23 +30,40 @@ defstruct(
     }
   end
 
-  @spec make_move(t, String.t) :: { t, Type.tally }
+### MAKE_MOVE ##########################################
 
+  @spec make_move(t, String.t) :: { t, Type.tally }
   def make_move(game = %{ game_state: state} , _guess)
   when state in [:won, :lost] do
-    {game, tally(game)}
+    #  if game is won or lost we exit, and return exisitng state
+    game
+    |> return_with_tally()
   end
 
 
-  # above syntax is equivalent as having two separate methods below
+  def make_move(game, guess) do
+    #  here we're asking if 'guess' appears in 'letters_used'
+    #  question mark means it returns true/false
 
-  # def make_move(game = %{ game_state: :won}, _guess) do
-  #   {game, tally(game)}
-  # end
+    # if game is NOT won or lost we exit, we accept the letter
+    # with accept_letter method we also check if we've already seen the letter
+    accept_guess(game, guess, MapSet.member?(game.letters_used, guess))
+    |> return_with_tally()
+  end
 
-  # def make_move(game = %{ game_state: :lost}, _guess) do
-  #   {game, tally(game)}
-  # end
+### ACCEPT_GUESS #########################################
+
+  defp accept_guess(game, _guess, _already_used = true) do
+    #  if we've seen the letter, we return state of already_used
+    %{game | game_state: :already_used}
+  end
+
+  defp accept_guess(game, guess, _already_used) do
+    #  if we have not seen the letter, we add it to the letters_used
+    %{game | letters_used: MapSet.put(game.letters_used, guess)}
+  end
+
+###########################################################
 
   defp tally(game) do
     %{
@@ -53,6 +72,10 @@ defstruct(
       letters: [],
       letters_used: game.letters_used |> MapSet.to_list |> Enum.sort
     }
+  end
+
+  defp return_with_tally(game) do
+    {game, tally(game)}
   end
 
 end
