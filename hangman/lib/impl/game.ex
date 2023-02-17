@@ -4,7 +4,7 @@ alias Hangman.Type
 
 @type t :: %__MODULE__{
   turns_left: integer,
-  game_state: Type.state,
+  game_state: Hangman.state,
   letters: list(String.t),
   letters_used: MapSet.t(String.t)
 }
@@ -81,7 +81,7 @@ end
 
 ###########################################################
 
-  defp tally(game) do
+  def tally(game) do
     %{
       turns_left: game.turns_left,
       game_state: game.game_state,
