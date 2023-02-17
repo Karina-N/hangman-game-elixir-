@@ -1,16 +1,12 @@
 defmodule Dictionary do
 
-# this is called module attribute @word_list (in our case)
-# it is created at compile time
-# its nitial value determined after running some initial elixir code
+  alias Dictionary.Impl.WordList
+  @opaque t :: WordList.t
 
+  @spec start() :: t
+  defdelegate start, to: WordList, as: :word_list
 
-@word_list "assets/words.txt"
-|> File.read!()
-|> String.split(~r/\n/, trim: true)
+  @spec random_word(t) :: String.t
+  defdelegate random_word(word_list), to: WordList
 
-  def random_word do
-    @word_list
-    |> Enum.random()
-  end
 end
