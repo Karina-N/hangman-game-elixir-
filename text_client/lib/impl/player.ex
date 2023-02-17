@@ -37,9 +37,11 @@ defmodule TextClient.Impl.Player do
 
   def current_word(tally) do
     [
-      "Word so far: ", tally.letters |> Enum.join(" "),
-      "   turns left: ", tally.turns_left |> to_string,
-      "   used so far: ", tally.letters_used |> Enum.join(",")
+      IO.ANSI.blue_background() <> "Word so far:  #{tally.letters |> Enum.join(" ")}"<> IO.ANSI.reset(),
+      IO.ANSI.green() <> " turns left: "<> IO.ANSI.reset(),
+      IO.ANSI.yellow() <> " #{tally.turns_left |> to_string}, " <> IO.ANSI.reset(),
+      IO.ANSI.green() <> "used so far: "<> IO.ANSI.reset(),
+      IO.ANSI.yellow() <> "#{tally.letters_used |> Enum.join(",")} "<> IO.ANSI.reset(),
     ]
   end
 
