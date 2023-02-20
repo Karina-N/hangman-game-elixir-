@@ -13,9 +13,8 @@ defmodule Hangman.Runtime.Watchdog do
       :im_alive ->
         watcher(expiry_time)
 
-      after expiry_time ->
-          Process.exit(self(), { :shutdown, :watchdog_triggered})
+    after expiry_time ->
+        Process.exit(self(), { :shutdown, :watchdog_triggered })
     end
   end
-
 end
