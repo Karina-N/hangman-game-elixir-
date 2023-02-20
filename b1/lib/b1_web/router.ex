@@ -20,6 +20,6 @@ defmodule B1Web.Router do
     get  "/", HangmanController, :index
     post "/", HangmanController, :new
     put  "/", HangmanController, :update
-    # get  "/current", HangmanController, :show
+    get  "/current", HangmanController, :show
   end
 end
