@@ -19,10 +19,7 @@ defmodule B1Web.Router do
 
     get  "/", HangmanController, :index
     post "/", HangmanController, :new
+    put  "/", HangmanController, :update
+    # get  "/current", HangmanController, :show
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", B1Web do
-  #   pipe_through :api
-  # end
 end
