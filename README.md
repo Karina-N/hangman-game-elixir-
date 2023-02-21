@@ -18,7 +18,7 @@ A code along exercise to build a hangman game.
 1. Clone the repo
 
 ```
-https://github.com/Karina-N/hangman-game-elixir-.git
+https://github.com/Karina-N/hangman-game-elixir-phoenix.git
 ```
 
 2. Navigate to directory `B2`
