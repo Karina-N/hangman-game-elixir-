@@ -200,12 +200,6 @@ defmodule B2Web.Live.Game.Figure do
     """
   end
 
-  # def render(assigns) do
-  #   ~H"""
-  #     <p>In figure</p>
-  #   """
-  # end
-
   defp hide_if_left_gt(left, level) do
     if left > level, do: "hide-component", else: ""
   end
